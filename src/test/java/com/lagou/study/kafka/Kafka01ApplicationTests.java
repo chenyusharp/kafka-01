@@ -30,7 +30,7 @@ class Kafka01ApplicationTests {
         System.out.println(kafkaProducer.sender(String.valueOf(product1.getId()),gson.toJson(product1)));
 
         Product  product2=new Product();
-        product2.setId(101L);
+        product2.setId(105L);
         product2.setName("test2");
         product2.setImgUrl(new ArrayList<>());
         product2.setSpecification("101g/盒");
