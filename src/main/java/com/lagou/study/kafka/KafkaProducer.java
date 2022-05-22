@@ -1,6 +1,8 @@
 package com.lagou.study.kafka;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
+import org.apache.kafka.common.PartitionInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
@@ -15,6 +17,8 @@ public class KafkaProducer {
 
 
     public String sender(String key, String content) throws ExecutionException, InterruptedException {
+        final List<PartitionInfo> partitionInfos = kafkaTemplate.partitionsFor(KafkaConstant.TOPIC);
+        System.out.println("partitionInfos size:"+partitionInfos.size());
         ListenableFuture<SendResult<String, String>> future = kafkaTemplate
                 .send(KafkaConstant.TOPIC, key, content);
         if (null != future.get().getRecordMetadata()) {
