@@ -14,8 +14,9 @@ public class KafkaProducer {
     private KafkaTemplate<String, String> kafkaTemplate;
 
 
-    public String sender(String content) throws ExecutionException, InterruptedException {
-        ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send(KafkaConstant.TOPIC, content);
+    public String sender(String key, String content) throws ExecutionException, InterruptedException {
+        ListenableFuture<SendResult<String, String>> future = kafkaTemplate
+                .send(KafkaConstant.TOPIC, key, content);
         if (null != future.get().getRecordMetadata()) {
             System.out.println("消费发送成功 offset:" + future.get().getRecordMetadata().offset());
             return "success";
